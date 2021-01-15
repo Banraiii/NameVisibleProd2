@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<body>
+
+
+
+
+<main>
+    <div class="container">
+        <div class="table-responsive text-nowrap">
+  <h2>Корзина</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Название предмета</th>
+        <th scope="col">Цена</th>
+        <th scope="col">Количество</th>
+        <th scope="col">Общее price</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for order_items in object.items.all %}
+      <tr>
+        <th scope="row">1</th>
+        <td>{{ order_items.item.title }}</td>
+        <td>{{ order_items.item.price }}</td>
+        <td>
+            <a href="{% url 'core:remove-item-from-cart' order_items.item.slug %}"><i class="fas fa-minus mr-2 "></i></a>
+            {{ order_items.quantity }}
+            <a href="{% url 'core:add-to-cart' order_items.item.slug %}"><i class="fas fa-plus ml-2"></i></td></a>
+         <td>
+            {% if order_items.item.discount_price %}
+                {{ order_items.get_total_discount_item_price }}₽
+                <span class="badge badge-primary">Сэкономить {{ order_items.get_amount_saved }}  ₽</span>
+            {% else %}
+                {{ order_items.get_total_item_price }}₽
+            {% endif %}
+            <a href="{% url 'core:remove-from-cart' order_items.item.slug %}">
+                <i style="color:red;" class="fas fa-trash-alt float-right">УДОЛИ!</i>
+            </a>
+            </td>
+      </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5">Ваша карта не найдена</td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <a class='btn btn-primary float-right' href='/'>Перейти в магазин</a> </td>
+    </tr>
+    {% endfor %}
+    {% if object.get_total %}
+    <tr>
+        <td colspan="4"><b>Общая цена</b></td>
+        <td>{{ object.get_total }}  ₽</td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <a class='btn btn-warning float-right ml-2' href='/list/chechout/'>Оформить заказ</a>
+            <a class='btn btn-primary float-right' href='/'>Перейти в магазин</a> </td>
+    </tr>
+    {% endif %}
+    </tbody>
+  </table>
+
+</div>
+    </div>
+  </main>
+{% endblock content %}
+
+
+</body>
+
+</html>

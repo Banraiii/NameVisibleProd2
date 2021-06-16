@@ -1,4 +1,4 @@
-# Django Project Boilerplate
+# Django Project
 
 This repository is a boilerplate Django project for quickly getting started.
 

@@ -1,8 +1,5 @@
 # Django Project
-
-This repository is a boilerplate Django project for quickly getting started.
-
-[![alt text](https://github.com/justdjango/django_project_boilerplate/blob/master/thumbnail.png "Logo")]
+This repository is an advanced Django project with a serious back-end. E-commerce implementation.
 
 ## Getting started
 
